@@ -1,0 +1,23 @@
+food_name,serving_size,protein,fat,carbs,sodium,category
+Almonds Raw,1 oz (28g),6g,14g,6g,0mg,Nuts & Seeds
+"almonds, raw",28 g,6.0,14.0,6.0,,nuts
+ALMONDS (RAW),28g,6,14,6,0.001g,Nuts
+Chicken Breast Grilled,100g,31g,3.6g,0g,74mg,Poultry
+"Chicken Breast, Grilled",100 g,31.0,3.6,0,0.074g,poultry
+Greek Yogurt Plain,170g,17g,0.7g,6g,65mg,Dairy
+greek yogurt (plain),170 g,17,,6,65mg,Dairy
+Greek Yogurt - Plain,6 oz,,0.7g,6g,,dairy
+Salmon Atlantic Cooked,100g,25g,13g,0g,59mg,Fish
+Salmon (Atlantic) Cooked,100 g,25.0,13.0,0.0,0.059g,fish
+Broccoli Steamed,1 cup (156g),3.7g,0.4g,11g,33mg,Vegetables
+"broccoli, steamed",156g,3.7,0.4,11,33mg,vegetables
+"Broccoli,Steamed",1 cup,3.7g,.4g,11g,,Vegetables
+Quinoa Cooked,1 cup (185g),8g,3.6g,39g,13mg,Grains
+Quinoa (cooked),185 g,8.0,3.6,39.0,0.013g,grains
+Spinach Raw,1 cup (30g),0.9g,0.1g,1.1g,24mg,Vegetables
+spinach raw,30g,,0.1,1.1,24mg,vegetables
+Avocado,1 medium (150g),3g,21g,12g,7mg,Fruit
+Avocado (whole),150 g,3.0,21.0,12.0,0.007g,fruit
+Eggs Large,1 egg (50g),6g,5g,0.6g,62mg,Protein
+"eggs, large",50g,6.0,5.0,0.6,62mg,protein
+Eggs Large Boiled,50g,6g,5g,1g,62mg,protein
