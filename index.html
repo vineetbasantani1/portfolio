@@ -3,481 +3,490 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vineet Basantani — Data Cleanup for Small Shops</title>
+<title>Vineet Basantani | Catalog and Records Cleanup for Tool, Hardware and Auto-Parts Shops</title>
+<meta name="description" content="I clean up product catalogs, part numbers and vendor records for tool, hardware, welding and auto-parts businesses. Based in Moncton, New Brunswick. Free audit.">
+<meta name="theme-color" content="#1B1F23">
+<meta property="og:title" content="Product data held to tolerance">
+<meta property="og:description" content="Catalog, part-number and vendor-record cleanup for tool, hardware, welding and auto-parts businesses.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%231F4E79' d='M16 2l12 7v14l-12 7L4 23V9z'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23D9DDE0'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --paper:#F6F1E4;
-    --paper-2:#EFE7D3;
-    --ink:#25352A;
-    --ink-soft:#4A5A4E;
-    --sage:#7C9678;
-    --sage-deep:#4E6B4C;
-    --gold:#C1922F;
-    --rust:#B4552E;
-    --line: rgba(37,53,42,0.16);
-    --card: #FCFAF3;
+    --steel-1:#D9DDE0;   /* brushed steel, main ground */
+    --steel-2:#C7CDD2;   /* darker plate */
+    --steel-3:#A9B1B8;   /* edge and rule colour */
+    --gun-1:#1B1F23;     /* gunmetal, dark bands */
+    --gun-2:#262C32;     /* raised gunmetal */
+    --gun-3:#39424B;     /* rules on dark */
+    --ink:#15191D;
+    --ink-soft:#3A444D;
+    --dye:#1F4E79;       /* layout-dye blue: actions */
+    --dye-deep:#173C5E;
+    --straw:#E0C068;     /* heat-tint straw: accent on dark */
+    --on-dark:#E3E7EA;
+    --on-dark-soft:#A3ADB5;
+    --radius:2px;
+    --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='600'%3E%3Cfilter id='g' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.004 0.85' numOctaves='2' seed='4' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.12  0 0 0 0 0.14  0 0 0 0.22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
   }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
   body{
     margin:0;
-    background:var(--paper);
+    background:var(--steel-1);
+    background-image:var(--grain);
+    background-blend-mode:multiply;
     color:var(--ink);
-    font-family:'Inter', sans-serif;
-    line-height:1.55;
+    font-family:'Source Serif 4', Georgia, serif;
+    font-size:1.0625rem;
+    line-height:1.65;
     -webkit-font-smoothing:antialiased;
   }
-  ::selection{ background:var(--gold); color:#fff; }
-
   h1,h2,h3{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    color:var(--ink);
-    margin:0 0 0.4em 0;
-    letter-spacing:-0.01em;
+    font-family:'Barlow Condensed', 'Arial Narrow', sans-serif;
+    font-weight:700;
+    line-height:1.02;
+    letter-spacing:0.005em;
+    margin:0 0 0.4em;
   }
-  a{ color:inherit; }
-  .mono{ font-family:'IBM Plex Mono', monospace; }
-
-  .wrap{ max-width:1040px; margin:0 auto; padding:0 28px; }
-
-  /* subtle paper texture via layered gradients */
-  body::before{
-    content:"";
-    position:fixed; inset:0;
-    background-image:
-      radial-gradient(circle at 20% 10%, rgba(124,150,120,0.07), transparent 40%),
-      radial-gradient(circle at 85% 30%, rgba(193,146,47,0.06), transparent 45%);
-    pointer-events:none;
-    z-index:0;
+  p{ margin:0 0 1em; }
+  a{ color:var(--dye); }
+  a:hover{ color:var(--dye-deep); }
+  :focus-visible{ outline:3px solid var(--dye); outline-offset:3px; }
+  .on-dark :focus-visible, header.nav :focus-visible{ outline-color:var(--straw); }
+  .skip{
+    position:absolute; left:-999px; top:8px; background:var(--ink); color:#fff;
+    padding:10px 16px; z-index:100; font-family:'Barlow Condensed', sans-serif; font-size:1.1rem;
   }
+  .skip:focus{ left:8px; }
 
+  .wrap{ width:100%; max-width:1120px; margin:0 auto; padding:0 28px; }
+  .band{ padding:88px 0; }
+  .band-tight{ padding:56px 0; }
+  .band-alt{ background:var(--steel-2); background-image:var(--grain); background-blend-mode:multiply; }
+  .on-dark{ background:var(--gun-1); color:var(--on-dark); }
+  .on-dark h2, .on-dark h3{ color:#fff; }
+  .on-dark a{ color:var(--straw); }
+  .on-dark a:hover{ color:#fff; }
+
+  /* ---------- NAV ---------- */
   header.nav{
     position:sticky; top:0; z-index:50;
-    background:rgba(246,241,228,0.88);
-    backdrop-filter: blur(6px);
-    border-bottom:1px solid var(--line);
+    background:var(--gun-1);
+    color:var(--on-dark);
+    border-bottom:1px solid #000;
+    box-shadow:0 1px 0 rgba(255,255,255,0.06) inset;
   }
-  header.nav .wrap{
-    display:flex; align-items:center; justify-content:space-between;
-    padding-top:16px; padding-bottom:16px;
-  }
-  .brand{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    font-size:1.05rem;
-    letter-spacing:0.01em;
-  }
-  .brand small{
-    display:block;
-    font-family:'Inter', sans-serif;
-    font-weight:500;
-    font-size:0.68rem;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    margin-top:2px;
-  }
-  nav.links{ display:flex; gap:26px; font-size:0.9rem; }
+  header.nav .wrap{ display:flex; align-items:center; justify-content:space-between; gap:24px; padding-top:13px; padding-bottom:13px; }
+  .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; color:#fff; }
+  .brand svg{ flex:none; }
+  .brand b{ font-family:'Barlow Condensed', sans-serif; font-size:1.35rem; font-weight:700; letter-spacing:0.02em; display:block; line-height:1; }
+  .brand span{ display:block; font-size:0.8rem; color:var(--on-dark-soft); line-height:1.2; margin-top:3px; font-family:'Source Serif 4', serif; }
+  nav.links{ display:flex; align-items:center; gap:28px; }
   nav.links a{
-    text-decoration:none; color:var(--ink-soft);
-    border-bottom:1px solid transparent;
-    padding-bottom:2px;
-    transition:border-color .2s, color .2s;
+    color:var(--on-dark); text-decoration:none;
+    font-family:'Barlow Condensed', sans-serif; font-weight:500; font-size:1.1rem; letter-spacing:0.03em;
+    padding:4px 0; border-bottom:2px solid transparent;
   }
-  nav.links a:hover{ color:var(--ink); border-color:var(--gold); }
-
-  /* HERO */
-  .hero{ position:relative; z-index:1; padding:88px 0 64px; }
-  .eyebrow{
-    display:inline-flex; align-items:center; gap:8px;
-    font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
-    color:var(--sage-deep); font-weight:600;
-    margin-bottom:22px;
+  nav.links a:hover{ color:#fff; border-bottom-color:var(--straw); }
+  nav.links a.nav-cta{
+    background:var(--straw); color:var(--ink); padding:8px 16px; border-bottom:0; border-radius:var(--radius); font-weight:600; white-space:nowrap;
   }
-  .eyebrow::before{
-    content:""; width:22px; height:1px; background:var(--sage-deep);
-  }
-  .hero h1{
-    font-size:clamp(2.3rem, 5vw, 3.6rem);
-    line-height:1.06;
-    max-width:15ch;
-  }
-  .hero h1 em{
-    font-style:italic; color:var(--sage-deep);
-  }
-  .hero p.lede{
-    max-width:56ch;
-    font-size:1.12rem;
-    color:var(--ink-soft);
-    margin:22px 0 34px;
-  }
-  .cta-row{ display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
-  .btn{
-    display:inline-flex; align-items:center; gap:10px;
-    padding:13px 24px;
-    border-radius:3px;
-    font-weight:600; font-size:0.95rem;
-    text-decoration:none;
-    transition:transform .15s ease, box-shadow .15s ease;
-    border:1px solid transparent;
-  }
-  .btn:hover{ transform:translateY(-1px); }
-  .btn-primary{ background:var(--ink); color:var(--paper); }
-  .btn-primary:hover{ box-shadow:0 6px 18px rgba(37,53,42,0.25); }
-  .btn-ghost{ border-color:var(--line); color:var(--ink); }
-  .btn-ghost:hover{ border-color:var(--ink); }
-
-  .hero-note{
-    margin-top:20px; font-size:0.85rem; color:var(--ink-soft);
-  }
-
-  /* SECTION generic */
-  section{ position:relative; z-index:1; padding:64px 0; }
-  .section-head{ max-width:60ch; margin-bottom:40px; }
-  .section-head .kicker{
-    font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase;
-    color:var(--gold); font-weight:600; margin-bottom:10px; display:block;
-  }
-  .section-head h2{ font-size:clamp(1.6rem, 3vw, 2.1rem); }
-  .section-head p{ color:var(--ink-soft); margin-top:12px; }
-
-  hr.rule{ border:none; border-top:1px solid var(--line); margin:0; }
-
-  /* PROBLEM checklist as ledger lines */
-  .ledger{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:6px;
-    overflow:hidden;
-  }
-  .ledger-row{
-    display:flex; align-items:flex-start; gap:16px;
-    padding:18px 24px;
-    border-bottom:1px solid var(--line);
-  }
-  .ledger-row:last-child{ border-bottom:none; }
-  .ledger-check{
-    flex:none; width:22px; height:22px; margin-top:2px;
-    border-radius:50%;
-    background:var(--sage);
-    display:flex; align-items:center; justify-content:center;
-    color:#fff; font-size:0.75rem; font-weight:700;
-  }
-  .ledger-row .t{ font-weight:600; }
-  .ledger-row .d{ color:var(--ink-soft); font-size:0.92rem; margin-top:3px; }
-
-  /* BEFORE / AFTER */
-  .sample-tag{
-    display:inline-block;
-    font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase;
-    font-weight:700; color:var(--rust);
-    border:1px solid var(--rust);
-    padding:4px 10px; border-radius:999px;
-    margin-bottom:22px;
-    transform:rotate(-1.5deg);
-  }
-  .ba-grid{
-    display:grid; grid-template-columns:1fr 1fr; gap:22px;
-  }
-  @media (max-width:760px){ .ba-grid{ grid-template-columns:1fr; } }
-  .ba-col{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:6px;
-    padding:26px;
-  }
-  .ba-col h3{
-    font-family:'Inter', sans-serif; font-weight:700; font-size:0.85rem;
-    letter-spacing:0.08em; text-transform:uppercase;
-    margin-bottom:18px;
-    display:flex; align-items:center; gap:8px;
-  }
-  .ba-col.before h3{ color:var(--rust); }
-  .ba-col.after h3{ color:var(--sage-deep); }
-  .ba-item{
-    font-family:'IBM Plex Mono', monospace;
-    font-size:0.85rem;
-    padding:12px 0;
-    border-top:1px dashed var(--line);
-  }
-  .ba-item:first-of-type{ border-top:none; padding-top:0; }
-  .ba-col.before .ba-item{ color:#7a5147; text-decoration:line-through; text-decoration-color:rgba(180,85,46,0.5); }
-  .ba-col.after .ba-item{ color:var(--ink); }
-  .ba-item .note{
-    font-family:'Inter', sans-serif;
-    display:block; text-decoration:none;
-    font-size:0.76rem; color:var(--ink-soft); margin-top:4px;
-  }
-  .ba-col.before .ba-item .note{ color:var(--rust); }
-  .ba-col.after .ba-item .note{ color:var(--sage-deep); }
-
-  /* SERVICES */
-  .cards{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
-  @media (max-width:760px){ .cards{ grid-template-columns:1fr; } }
-  .card{
-    background:var(--card); border:1px solid var(--line); border-radius:6px;
-    padding:30px;
-  }
-  .card .num{
-    font-family:'Fraunces', serif; font-style:italic;
-    color:var(--sage); font-size:0.95rem; margin-bottom:14px; display:block;
-  }
-  .card h3{ font-size:1.25rem; margin-bottom:10px; }
-  .card p{ color:var(--ink-soft); font-size:0.95rem; }
-  .card ul{ margin:16px 0 0; padding-left:18px; color:var(--ink-soft); font-size:0.9rem; }
-  .card li{ margin-bottom:6px; }
-
-  /* PROCESS */
-  .process{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; position:relative; }
-  @media (max-width:760px){ .process{ grid-template-columns:1fr; } }
-  .process .step{ padding:0 22px 0 0; position:relative; }
-  .process .step:not(:last-child)::after{
-    content:"→";
-    position:absolute; right:-4px; top:6px;
-    color:var(--sage); font-size:1.1rem;
-  }
+  nav.links a.nav-cta:hover{ background:#fff; color:var(--ink); }
   @media (max-width:760px){
-    .process .step{ padding:0 0 30px 0; }
-    .process .step:not(:last-child)::after{ content:"↓"; left:0; top:auto; bottom:6px; right:auto; }
-  }
-  .process .step-num{
-    font-family:'Fraunces', serif; font-style:italic; font-size:1.6rem;
-    color:var(--gold); margin-bottom:10px; display:block;
-  }
-  .process h3{ font-size:1.05rem; margin-bottom:8px; }
-  .process p{ color:var(--ink-soft); font-size:0.9rem; }
-
-  /* ABOUT */
-  .about-box{
-    background:var(--ink); color:var(--paper);
-    border-radius:8px; padding:44px;
-    display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:center;
-  }
-  @media (max-width:760px){ .about-box{ grid-template-columns:1fr; padding:30px; } }
-  .about-box h2{ color:var(--paper); }
-  .about-box p{ color:rgba(246,241,228,0.78); font-size:0.98rem; }
-  .about-box .loc{
-    font-size:0.78rem; letter-spacing:0.1em; text-transform:uppercase;
-    color:var(--gold); font-weight:600; margin-bottom:14px; display:block;
-  }
-  .honest-note{
-    border-left:2px solid var(--gold);
-    padding-left:16px; margin-top:20px;
-    font-size:0.88rem; color:rgba(246,241,228,0.7);
+    nav.links a:not(.nav-cta){ display:none; }
+    .brand span{ display:none; }
   }
 
-  /* CONTACT */
-  .contact{ text-align:center; padding:80px 0 100px; }
-  .contact h2{ font-size:clamp(1.8rem, 4vw, 2.6rem); max-width:16ch; margin:0 auto 18px; }
-  .contact p.lede{ max-width:48ch; margin:0 auto 34px; color:var(--ink-soft); }
-  .contact .cta-row{ justify-content:center; }
-  .contact-meta{
-    margin-top:34px; display:flex; gap:28px; justify-content:center;
-    flex-wrap:wrap; font-size:0.9rem; color:var(--ink-soft);
+  /* ---------- BUTTONS ---------- */
+  .btn{
+    display:inline-block; padding:14px 26px; border-radius:var(--radius);
+    font-family:'Barlow Condensed', sans-serif; font-weight:600; font-size:1.2rem; letter-spacing:0.03em;
+    text-decoration:none; line-height:1.1;
+    border:2px solid transparent; transition:background .15s, color .15s, border-color .15s;
   }
-  .contact-meta a{ text-decoration:none; color:var(--ink); border-bottom:1px solid var(--line); }
+  .btn-primary{ background:var(--dye); color:#fff; }
+  .btn-primary:hover{ background:var(--dye-deep); color:#fff; }
+  .btn-line{ border-color:var(--ink); color:var(--ink); }
+  .btn-line:hover{ background:var(--ink); color:var(--steel-1); }
+  .on-dark .btn-primary{ background:var(--straw); color:var(--ink); }
+  .on-dark .btn-primary:hover{ background:#fff; color:var(--ink); }
+  .btn-row{ display:flex; flex-wrap:wrap; gap:14px; }
 
-  footer{
-    border-top:1px solid var(--line);
-    padding:26px 0; text-align:center;
-    font-size:0.78rem; color:var(--ink-soft);
+  /* ---------- HERO ---------- */
+  .hero{ padding:84px 0 0; }
+  .hero-grid{ display:grid; grid-template-columns:1.25fr 1fr; gap:64px; align-items:center; }
+  @media (max-width:900px){ .hero-grid{ grid-template-columns:1fr; gap:48px; } }
+  .hero h1{ font-size:clamp(3rem, 7.4vw, 5.6rem); line-height:0.95; max-width:11ch; margin-bottom:0.32em; }
+  .hero .lede{ font-size:1.22rem; max-width:34em; color:var(--ink-soft); margin-bottom:1.6em; }
+  .hero .fine{ font-size:0.95rem; color:var(--ink-soft); margin:18px 0 0; }
+
+  /* the riveted data plate */
+  .plate{
+    position:relative;
+    padding:30px 30px 26px;
+    border:1px solid #7E8890;
+    border-radius:var(--radius);
+    background:
+      radial-gradient(circle at 12px 12px, #8C959C 0 3px, #5C656C 3.5px, transparent 4.5px),
+      radial-gradient(circle at calc(100% - 12px) 12px, #8C959C 0 3px, #5C656C 3.5px, transparent 4.5px),
+      radial-gradient(circle at 12px calc(100% - 12px), #8C959C 0 3px, #5C656C 3.5px, transparent 4.5px),
+      radial-gradient(circle at calc(100% - 12px) calc(100% - 12px), #8C959C 0 3px, #5C656C 3.5px, transparent 4.5px),
+      linear-gradient(150deg, #EEF0F2 0%, #BFC6CC 38%, #DDE1E4 58%, #AAB3BA 100%);
+    box-shadow:
+      inset 1px 1px 0 rgba(255,255,255,0.8),
+      inset -1px -1px 0 rgba(0,0,0,0.18),
+      0 22px 30px -22px rgba(15,20,25,0.65);
+  }
+  .plate h2{ font-size:1.05rem; font-weight:600; letter-spacing:0.06em; color:var(--ink-soft); margin:0 0 18px; padding:0 14px 10px; border-bottom:1px solid #7E8890; }
+  .plate dl{ margin:0; padding:0 14px; }
+  .plate dt{ font-family:'Barlow Condensed', sans-serif; font-weight:600; font-size:1rem; letter-spacing:0.04em; color:var(--ink-soft); margin-top:16px; }
+  .plate dd{ margin:4px 0 0; font-family:'JetBrains Mono', monospace; font-size:0.86rem; line-height:1.5; color:var(--ink); word-break:break-word; }
+  .plate dd.was{ color:#5B4A44; text-decoration:line-through; text-decoration-color:rgba(91,74,68,0.55); }
+  .plate dd.now{ font-weight:500; }
+  .plate .stamp{ margin:20px 14px 0; font-size:0.85rem; color:var(--ink-soft); font-style:normal; }
+
+  /* the scribed steel rule: one motion, on load */
+  .rule{
+    margin-top:72px; height:30px; position:relative;
+    background:
+      repeating-linear-gradient(90deg, var(--ink) 0 2px, transparent 2px 100px) 0 0 / 100% 30px no-repeat,
+      repeating-linear-gradient(90deg, var(--ink-soft) 0 1px, transparent 1px 20px) 0 0 / 100% 18px no-repeat,
+      repeating-linear-gradient(90deg, var(--ink-soft) 0 1px, transparent 1px 4px) 0 0 / 100% 9px no-repeat;
+    border-top:2px solid var(--ink);
+    opacity:0.85;
+    animation:scribe 1.3s cubic-bezier(.3,.7,.2,1) .25s both;
+  }
+  @keyframes scribe{ from{ clip-path:inset(0 100% 0 0); } to{ clip-path:inset(0 0 0 0); } }
+
+  /* ---------- SECTION HEADS ---------- */
+  .head{ max-width:40rem; margin-bottom:48px; }
+  .head h2{ font-size:clamp(2.2rem, 4.6vw, 3.4rem); }
+  .head p{ color:var(--ink-soft); font-size:1.1rem; }
+  .on-dark .head p{ color:var(--on-dark-soft); }
+
+  /* ---------- PROBLEM: ruled rows, not cards ---------- */
+  .issues{ margin:0; padding:0; list-style:none; border-top:2px solid var(--ink); }
+  .issues li{
+    display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.5fr); gap:12px 48px;
+    padding:22px 0; border-bottom:1px solid var(--steel-3);
+  }
+  @media (max-width:760px){ .issues li{ grid-template-columns:1fr; } }
+  .issues h3{ font-size:1.6rem; margin:0; }
+  .issues p{ margin:0; color:var(--ink-soft); }
+
+  /* ---------- SAMPLE: before and after table ---------- */
+  .sample-note{ display:inline-block; border-left:3px solid var(--straw); padding:2px 0 2px 14px; color:var(--on-dark-soft); margin:0 0 28px; max-width:44rem; }
+  .ba{ width:100%; border-collapse:collapse; }
+  .ba caption{ position:absolute; left:-999px; }
+  .ba th{
+    text-align:left; font-family:'Barlow Condensed', sans-serif; font-weight:600; font-size:1.15rem; letter-spacing:0.04em;
+    color:var(--on-dark-soft); padding:0 18px 12px 0; border-bottom:2px solid var(--on-dark-soft);
+  }
+  .ba th:nth-child(2){ color:var(--straw); }
+  .ba td{ vertical-align:top; padding:20px 18px 20px 0; border-bottom:1px solid var(--gun-3); }
+  .ba td.was{ font-family:'JetBrains Mono', monospace; font-size:0.85rem; color:#9AA4AC; }
+  .ba td.now{ font-family:'JetBrains Mono', monospace; font-size:0.85rem; color:#fff; }
+  .ba td.why{ color:var(--on-dark-soft); font-size:0.98rem; }
+  .ba small{ display:block; margin-top:4px; font-family:'Source Serif 4', serif; font-size:0.85rem; color:var(--on-dark-soft); }
+  @media (max-width:820px){
+    .ba thead{ position:absolute; left:-999px; }
+    .ba, .ba tbody, .ba tr, .ba td{ display:block; width:100%; }
+    .ba tr{ border-bottom:1px solid var(--gun-3); padding:18px 0; }
+    .ba td{ border:0; padding:4px 0; }
+    .ba td::before{ display:block; font-family:'Barlow Condensed', sans-serif; font-weight:600; letter-spacing:0.04em; font-size:0.95rem; color:var(--on-dark-soft); margin-top:8px; }
+    .ba td.was::before{ content:"As found"; }
+    .ba td.now::before{ content:"After cleanup"; color:var(--straw); }
+    .ba td.why::before{ content:"What changed"; }
   }
 
-  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
-  .reveal.show{ opacity:1; transform:none; }
+  /* ---------- SERVICES: ruled rows ---------- */
+  .service{
+    display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.5fr); gap:16px 48px;
+    padding:32px 0; border-top:1px solid var(--ink);
+  }
+  .service:last-child{ border-bottom:1px solid var(--ink); }
+  @media (max-width:760px){ .service{ grid-template-columns:1fr; } }
+  .service h3{ font-size:2rem; }
+  .service > div > p{ margin:0; color:var(--ink-soft); max-width:26rem; }
+  .service ul{ margin:0; padding-left:1.2em; }
+  .service li{ margin-bottom:0.45em; }
+  .service li::marker{ color:var(--dye); }
+
+  /* ---------- PROCESS: a real sequence ---------- */
+  .steps{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin:0; padding:0; list-style:none; counter-reset:step; border-top:2px solid var(--ink); }
+  @media (max-width:820px){ .steps{ grid-template-columns:1fr; } }
+  .steps li{ counter-increment:step; padding:26px 28px 8px 0; }
+  @media (min-width:821px){ .steps li + li{ padding-left:28px; border-left:1px solid var(--steel-3); } }
+  @media (max-width:820px){ .steps li{ border-bottom:1px solid var(--steel-3); padding-bottom:22px; } }
+  .steps li::before{
+    content:counter(step);
+    display:block; font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:4rem; line-height:0.9; color:var(--dye); margin-bottom:10px;
+  }
+  .steps h3{ font-size:1.7rem; }
+  .steps p{ color:var(--ink); margin:0; }
+
+  /* ---------- TOOLS ---------- */
+  .tools{ display:flex; flex-wrap:wrap; gap:16px 48px; align-items:center; justify-content:space-between; }
+  .tools h2{ font-size:2rem; margin-bottom:0.2em; }
+  .tools p{ margin:0; max-width:40rem; color:var(--ink-soft); }
+
+  /* ---------- ABOUT + CONTACT ---------- */
+  .about{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); gap:48px; }
+  @media (max-width:820px){ .about{ grid-template-columns:1fr; } }
+  .about h2{ font-size:clamp(2.2rem, 4.6vw, 3.2rem); }
+  .about p{ color:var(--on-dark-soft); }
+  .honest{ border-left:3px solid var(--straw); padding-left:18px; margin-top:26px; color:var(--on-dark); }
+  .contact{ margin-top:80px; padding-top:64px; border-top:1px solid var(--gun-3); }
+  .contact h2{ font-size:clamp(2.4rem, 6vw, 4.2rem); max-width:13ch; }
+  .contact .lede{ color:var(--on-dark-soft); max-width:32em; font-size:1.12rem; margin-bottom:1.6em; }
+  .details{ margin:40px 0 0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:10px 40px; font-size:1rem; color:var(--on-dark-soft); }
+  .details a{ color:var(--on-dark); text-decoration-color:var(--gun-3); text-underline-offset:4px; }
+  .details a:hover{ color:var(--straw); }
+
+  footer{ background:#101316; color:var(--on-dark-soft); font-size:0.88rem; padding:22px 0; }
+  .hazard{ height:8px; background:repeating-linear-gradient(-45deg, var(--straw) 0 12px, var(--gun-1) 12px 24px); opacity:0.9; }
+
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    .rule{ animation:none; }
+    .btn{ transition:none; }
+  }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
 <header class="nav">
   <div class="wrap">
-    <div class="brand">Vineet Basantani<small>Data Cleanup &amp; Organization</small></div>
-    <nav class="links">
-      <a href="#work">Sample Work</a>
+    <a class="brand" href="#top" aria-label="Vineet Basantani, home">
+      <svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><path fill="#D9DDE0" d="M16 2l12 7v14l-12 7L4 23V9z"/><path fill="#8C959C" d="M16 2l12 7v14l-12 7z" opacity=".45"/><circle cx="16" cy="16" r="5.2" fill="#1B1F23"/></svg>
+      <div><b>Vineet Basantani</b><span>Catalog and records cleanup</span></div>
+    </a>
+    <nav class="links" aria-label="Main">
+      <a href="#sample">Sample</a>
       <a href="#services">Services</a>
       <a href="#process">Process</a>
-      <a href="#contact">Contact</a>
+      <a class="nav-cta" href="#contact">Free audit</a>
     </nav>
   </div>
 </header>
 
-<section class="hero">
+<main id="main">
+
+<section class="hero" id="top">
   <div class="wrap">
-    <span class="eyebrow">Based in Moncton, NB · Working with shops everywhere</span>
-    <h1>Your shop's data,<br><em>finally in order.</em></h1>
-    <p class="lede">I help small e-commerce and retail businesses fix messy product listings, catch costly errors, and organize customer orders — so nothing gets lost as you grow.</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="mailto:vineetbasantani1@icloud.com?subject=Free%20shop%20audit">Get a free audit</a>
-      <a class="btn btn-ghost" href="#work">See a sample cleanup ↓</a>
+    <div class="hero-grid">
+      <div>
+        <h1>Product data held to tolerance.</h1>
+        <p class="lede">I clean up catalogs, part numbers and vendor records for tool, hardware, welding and auto-parts businesses, so customers find the right item and your stock numbers match the shelf.</p>
+        <div class="btn-row">
+          <a class="btn btn-primary" href="mailto:vineetbasantani1@icloud.com?subject=Free%20shop%20audit">Request a free audit</a>
+          <a class="btn btn-line" href="#sample">See a sample cleanup</a>
+        </div>
+        <p class="fine">The audit is free. You get a short, specific write-up of what I find, with no obligation.</p>
+      </div>
+
+      <aside class="plate" aria-label="Example of one listing before and after cleanup">
+        <h2>Listing inspection</h2>
+        <dl>
+          <dt>As found</dt>
+          <dd class="was">Forgemark 4410 HMR BLL PEIN FGL 16OZ</dd>
+          <dt>After cleanup</dt>
+          <dd class="now">Forgemark 4410 16 oz Ball Pein Hammer, Fiberglass Handle</dd>
+        </dl>
+        <p class="stamp">Made-up example. Not a client listing.</p>
+      </aside>
     </div>
-    <p class="hero-note">No cost, no obligation — I'll send you a short, specific write-up of what I find.</p>
+  </div>
+  <div class="wrap"><div class="rule" aria-hidden="true"></div></div>
+</section>
+
+<section class="band" id="problem">
+  <div class="wrap">
+    <div class="head">
+      <h2>Where shop data goes out of spec</h2>
+      <p>Most of this is invisible from the owner's side. It shows up as missed searches, split stock counts and customers who can't tell two items apart.</p>
+    </div>
+    <ul class="issues">
+      <li>
+        <h3>Titles copied straight from a distributor feed</h3>
+        <p>Strings like "WR;OE;SGL;BK;3-3/4" mean something to a parts clerk and nothing to a customer or a search engine.</p>
+      </li>
+      <li>
+        <h3>One category for every product</h3>
+        <p>Gloves, blades, hoses and sockets all filed under the same heading makes browsing and filtering useless.</p>
+      </li>
+      <li>
+        <h3>Thin or missing descriptions</h3>
+        <p>A page with only a model number gives buyers nothing to compare and gives search engines nothing to match.</p>
+      </li>
+      <li>
+        <h3>Duplicate records and mixed spellings</h3>
+        <p>"Ironvale", "IRONVALE" and "Ironvale Tools" count as three brands in a filter, and two entries for one part split its sales history.</p>
+      </li>
+      <li>
+        <h3>Unit formats that disagree</h3>
+        <p>18V, 18 V and 18 volt; 1/2", 1/2 in and 12.7 mm. Reports and filters treat each as something different.</p>
+      </li>
+      <li>
+        <h3>Stock counts that don't match the shelf</h3>
+        <p>The store says in stock, the bin says empty. That is a quiet source of refunds and lost trust.</p>
+      </li>
+    </ul>
   </div>
 </section>
 
-<section id="problem">
+<section class="band on-dark" id="sample">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">The problem</span>
-      <h2>The mess hides in plain sight</h2>
-      <p>Most shop owners never see these — they only show up if someone actually goes looking.</p>
+    <div class="head">
+      <h2>A sample cleanup</h2>
     </div>
-    <div class="ledger reveal">
-      <div class="ledger-row">
-        <div class="ledger-check">✓</div>
-        <div><div class="t">Duplicate listings, different prices</div><div class="d">The same product gets listed twice over time — customers see two prices and don't know which is real.</div></div>
-      </div>
-      <div class="ledger-row">
-        <div class="ledger-check">✓</div>
-        <div><div class="t">Inconsistent titles across similar products</div><div class="d">One naming style today, another six months ago — makes the shop harder to browse and hurts search visibility.</div></div>
-      </div>
-      <div class="ledger-row">
-        <div class="ledger-check">✓</div>
-        <div><div class="t">"In stock" items that are actually sold out</div><div class="d">A mismatch between what the store says is available and what's really there — a quiet source of lost sales.</div></div>
-      </div>
-      <div class="ledger-row">
-        <div class="ledger-check">✓</div>
-        <div><div class="t">Custom orders tracked only in old messages</div><div class="d">Measurements, color requests, and repeat customers get buried in DMs with no way to search back through them.</div></div>
-      </div>
-      <div class="ledger-row">
-        <div class="ledger-check">✓</div>
-        <div><div class="t">Typos, broken links, leftover placeholder text</div><div class="d">Small things — but they're the first impression a new customer gets of the business.</div></div>
-      </div>
-    </div>
+    <p class="sample-note">These examples are made up to show the kind of fix. Real case studies will replace them after the first audits.</p>
+    <table class="ba">
+      <caption>Sample listings before and after cleanup</caption>
+      <thead>
+        <tr><th scope="col">As found</th><th scope="col">After cleanup</th><th scope="col">What changed</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="was">Forgemark 4410 HMR BLL PEIN FGL 16OZ</td>
+          <td class="now">Forgemark 4410 16 oz Ball Pein Hammer, Fiberglass Handle</td>
+          <td class="why">Abbreviations written out. Size and handle type stated.</td>
+        </tr>
+        <tr>
+          <td class="was">Ironvale 3/8 DR 11/16 DP SKT<small>Category: Automotive Tools</small></td>
+          <td class="now">Ironvale 3/8" Drive 11/16" Deep Socket, 6-Point<small>Category: Hand Tools, Sockets, Deep</small></td>
+          <td class="why">Readable title and the right category.</td>
+        </tr>
+        <tr>
+          <td class="was">Vendor: Ironvale<br>Vendor: IRONVALE<br>Vendor: Ironvale Tools</td>
+          <td class="now">Vendor: Ironvale</td>
+          <td class="why">Three spellings merged, so one brand filter works.</td>
+        </tr>
+        <tr>
+          <td class="was">Ironvale 18V Cordless Drill, $129.00<br>IRONVALE 18 Volt Cordless Drill, $139.00</td>
+          <td class="now">Ironvale 18V Cordless Drill, $129.00</td>
+          <td class="why">Duplicate merged into one listing. The price is confirmed with the owner first.</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
-<section id="work">
+<section class="band" id="services">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">What it looks like</span>
-      <h2>A cleanup, before and after</h2>
-      <p>A hypothetical example showing the kind of fixes I make. Real client work will replace this once the first audits are complete.</p>
+    <div class="head">
+      <h2>What I do</h2>
+      <p>Three services, each priced as a fixed scope before work starts.</p>
     </div>
-    <span class="sample-tag reveal">Sample — illustrative, not a real client</span>
-    <div class="ba-grid reveal">
-      <div class="ba-col before">
-        <h3>Before</h3>
-        <div class="ba-item">Lavender Candle 8oz Soy Wax Candle Lavender Scented Candle Gift<span class="note">Keyword-stuffed, no clear title format</span></div>
-        <div class="ba-item">Rose Gold Hoop Earrings — $18.00<span class="note">Listed again at $24.00 under a slightly different name</span></div>
-        <div class="ba-item">Handmade Necklase<span class="note">Typo, live on the site</span></div>
-        <div class="ba-item">In stock: Yes<span class="note">Filter says available — item is actually sold out</span></div>
-      </div>
-      <div class="ba-col after">
-        <h3>After</h3>
-        <div class="ba-item">Lavender Soy Candle, 8oz — Calming Gift Set<span class="note">Clear, consistent title format</span></div>
-        <div class="ba-item">Rose Gold Hoop Earrings — $18.00<span class="note">Merged into one listing, single accurate price</span></div>
-        <div class="ba-item">Handmade Necklace<span class="note">Fixed</span></div>
-        <div class="ba-item">In stock: No<span class="note">Inventory status matches reality</span></div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section id="services">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">How I can help</span>
-      <h2>Two things, done well</h2>
-    </div>
-    <div class="cards reveal">
-      <div class="card">
-        <span class="num">i.</span>
-        <h3>Listing Cleanup</h3>
-        <p>Standardizing your product listings so the shop feels consistent and performs better in search.</p>
+    <div class="service">
+      <h3>Catalog and listing cleanup</h3>
+      <div>
         <ul>
-          <li>Merge duplicate or near-duplicate listings</li>
-          <li>Standardize titles and categories</li>
-          <li>Fix typos, broken links, and inventory mismatches</li>
+          <li>Rewrite cryptic titles and assign correct categories</li>
+          <li>Merge duplicates and standardize brand names and units</li>
+          <li>Write missing descriptions from the manufacturer's own specs, with a source link for each product</li>
+          <li>Prepare upload files for Shopify and marketplaces</li>
         </ul>
       </div>
-      <div class="card">
-        <span class="num">ii.</span>
-        <h3>Order &amp; Customer Organization</h3>
-        <p>Turning scattered custom-order requests into a simple, searchable system.</p>
+    </div>
+
+    <div class="service">
+      <h3>Parts, inventory and vendor records</h3>
+      <div>
         <ul>
-          <li>Organize custom order details and measurements</li>
-          <li>Track repeat customers and past requests</li>
-          <li>Set up something simple — no new software to learn</li>
+          <li>Clean part-number lists and cross-references</li>
+          <li>Tidy vendor lists and price files from several suppliers</li>
+          <li>Reconcile stock counts against your system</li>
+          <li>Organize spare-parts and equipment registers for shops and plants</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="service">
+      <h3>Shop IT and store support</h3>
+      <div>
+        <ul>
+          <li>Remote help on a monthly plan for everyday IT and store upkeep</li>
+          <li>Supplier price and stock file handling</li>
+          <li>Backups, Microsoft 365 or Google Workspace setup, and password safety</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section id="process">
+<section class="band band-alt" id="process">
   <div class="wrap">
-    <div class="section-head reveal">
-      <span class="kicker">How it works</span>
-      <h2>Three steps, no pressure</h2>
+    <div class="head">
+      <h2>How a job runs</h2>
     </div>
-    <div class="process reveal">
-      <div class="step">
-        <span class="step-num">01</span>
+    <ol class="steps">
+      <li>
         <h3>Free audit</h3>
-        <p>I look at your shop and send a short, specific write-up of what I find — no cost, no obligation.</p>
-      </div>
-      <div class="step">
-        <span class="step-num">02</span>
-        <h3>Simple plan</h3>
-        <p>If it's useful, we agree on what to fix and roughly how long it'll take.</p>
-      </div>
-      <div class="step">
-        <span class="step-num">03</span>
-        <h3>Clean data, delivered</h3>
-        <p>Organized, documented, and ready to use — in whatever format works for you.</p>
-      </div>
-    </div>
+        <p>I review your public catalog or a sample export and send a short write-up of what I find.</p>
+      </li>
+      <li>
+        <h3>Fixed-price scope</h3>
+        <p>We agree on what to fix, the file formats and the price before any work starts.</p>
+      </li>
+      <li>
+        <h3>Delivered and documented</h3>
+        <p>You get clean files, a log of every change, and the rules I applied so the data stays clean.</p>
+      </li>
+    </ol>
   </div>
 </section>
 
-<section id="about">
+<section class="band-tight" id="tools">
   <div class="wrap">
-    <div class="about-box reveal">
+    <div class="tools">
       <div>
-        <span class="loc">Moncton, New Brunswick</span>
-        <h2>Why work with me</h2>
-        <p>I'm building this business one shop at a time, starting right here in Moncton and with small online sellers further afield. I care about getting the details right — which is exactly the point.</p>
-        <div class="honest-note">I'm currently offering free audits to a limited number of shops so I can build out real, documented case studies. Early clients get my full attention and a very fair price.</div>
+        <h2>How I audit</h2>
+        <p>Two open-source scripts check a public catalog for duplicates, missing SKUs, thin descriptions and mixed units. They read only what a store already shows every visitor.</p>
       </div>
-      <div>
-        <p style="font-size:0.95rem; color:rgba(246,241,228,0.85); line-height:1.7;">If you run a small shop and something about your listings, inventory, or order tracking has been bugging you — even something small — that's usually exactly where I can help.</p>
-      </div>
+      <a class="btn btn-line" href="https://github.com/vineetbasantani1/shopify-catalog-audit-tools" target="_blank" rel="noopener">View the tools on GitHub</a>
     </div>
   </div>
 </section>
 
-<section class="contact" id="contact">
+<section class="band on-dark" id="about">
   <div class="wrap">
-    <h2>Let's clean something up.</h2>
-    <p class="lede">Send me your shop link and I'll get back to you with a few specific things I noticed — no cost, no obligation.</p>
-    <div class="cta-row">
-      <a class="btn btn-primary" href="mailto:vineetbasantani1@icloud.com?subject=Free%20shop%20audit">Email me</a>
+    <div class="about">
+      <div>
+        <h2>Built around the trades</h2>
+      </div>
+      <div>
+        <p>I'm based in Moncton, New Brunswick, with a background in technical field service and enterprise IT support. I've worked on the service side, so I understand how parts lists, work orders and equipment records are used day to day, and I ask the right questions about your data.</p>
+        <p class="honest">I'm offering free audits to a limited number of shops while I build documented case studies. Early clients get my full attention and a fair price.</p>
+      </div>
     </div>
-    <div class="contact-meta">
-      <a href="mailto:vineetbasantani1@icloud.com">vineetbasantani1@icloud.com</a>
-      <a href="tel:19027540926">902-754-0926</a>
-      <span>Moncton, NB</span>
+
+    <div class="contact" id="contact">
+      <h2>Send me your store link.</h2>
+      <p class="lede">I'll reply with a few specific things I noticed. No cost, no obligation.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="mailto:vineetbasantani1@icloud.com?subject=Free%20shop%20audit">Email for a free audit</a>
+      </div>
+      <ul class="details">
+        <li><a href="mailto:vineetbasantani1@icloud.com">vineetbasantani1@icloud.com</a></li>
+        <li><a href="tel:19027540926">902-754-0926</a></li>
+        <li>Moncton, New Brunswick</li>
+      </ul>
     </div>
   </div>
 </section>
 
+</main>
+
+<div class="hazard" aria-hidden="true"></div>
 <footer>
-  <div class="wrap">© Vineet Basantani — Data Cleanup &amp; Organization</div>
+  <div class="wrap">&copy; 2026 Vineet Basantani. Catalog and records cleanup.</div>
 </footer>
-
-<script>
-  const els = document.querySelectorAll('.reveal');
-  const io = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.15 });
-  els.forEach(el=>io.observe(el));
-</script>
 
 </body>
 </html>
