@@ -5,11 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vineet Basantani | Catalog and Records Cleanup for Tool, Hardware and Auto-Parts Shops</title>
 <meta name="description" content="I clean up product catalogs, part numbers and vendor records for tool, hardware, welding and auto-parts businesses. Based in Moncton, New Brunswick. Free audit.">
-<meta name="theme-color" content="#1B1F23">
+<meta name="theme-color" content="#B3141B">
 <meta property="og:title" content="Product data held to tolerance">
 <meta property="og:description" content="Catalog, part-number and vendor-record cleanup for tool, hardware, welding and auto-parts businesses.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%231F4E79' d='M16 2l12 7v14l-12 7L4 23V9z'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23D9DDE0'/%3E%3C/svg%3E">
+<meta property="og:url" content="https://vineetbasantani1.github.io/portfolio/">
+<meta property="og:image" content="https://vineetbasantani1.github.io/portfolio/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Vineet Basantani: product data held to tolerance. Steel and red title card.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://vineetbasantani1.github.io/portfolio/og-image.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23B3141B' d='M16 2l12 7v14l-12 7L4 23V9z'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%23D9DDE0'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=JetBrains+Mono:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
@@ -23,9 +31,11 @@
     --gun-3:#39424B;     /* rules on dark */
     --ink:#15191D;
     --ink-soft:#3A444D;
-    --dye:#1F4E79;       /* layout-dye blue: actions */
-    --dye-deep:#173C5E;
-    --straw:#E0C068;     /* heat-tint straw: accent on dark */
+    --red:#B3141B;       /* forge red: fills, rules, big numerals (5.1:1 on steel, white text 6.9:1) */
+    --red-text:#A50F1A;  /* red for small text and links on light grounds (5.7:1 on steel) */
+    --red-deep:#8A0E14;  /* hover */
+    --red-bright:#D62828;/* red fills on dark bands (white text 5.0:1) */
+    --red-hot:#FF5C4D;   /* red text and marks on gunmetal (5.4:1) */
     --on-dark:#E3E7EA;
     --on-dark-soft:#A3ADB5;
     --radius:2px;
@@ -52,10 +62,11 @@
     margin:0 0 0.4em;
   }
   p{ margin:0 0 1em; }
-  a{ color:var(--dye); }
-  a:hover{ color:var(--dye-deep); }
-  :focus-visible{ outline:3px solid var(--dye); outline-offset:3px; }
-  .on-dark :focus-visible, header.nav :focus-visible{ outline-color:var(--straw); }
+  a{ color:var(--red-text); }
+  a:hover{ color:var(--red-deep); }
+  ::selection{ background:var(--red); color:#fff; }
+  :focus-visible{ outline:3px solid var(--red); outline-offset:3px; }
+  .on-dark :focus-visible, header.nav :focus-visible{ outline-color:var(--red-hot); }
   .skip{
     position:absolute; left:-999px; top:8px; background:var(--ink); color:#fff;
     padding:10px 16px; z-index:100; font-family:'Barlow Condensed', sans-serif; font-size:1.1rem;
@@ -68,7 +79,7 @@
   .band-alt{ background:var(--steel-2); background-image:var(--grain); background-blend-mode:multiply; }
   .on-dark{ background:var(--gun-1); color:var(--on-dark); }
   .on-dark h2, .on-dark h3{ color:#fff; }
-  .on-dark a{ color:var(--straw); }
+  .on-dark a{ color:var(--red-hot); }
   .on-dark a:hover{ color:#fff; }
 
   /* ---------- NAV ---------- */
@@ -76,7 +87,7 @@
     position:sticky; top:0; z-index:50;
     background:var(--gun-1);
     color:var(--on-dark);
-    border-bottom:1px solid #000;
+    border-bottom:3px solid var(--red-bright);
     box-shadow:0 1px 0 rgba(255,255,255,0.06) inset;
   }
   header.nav .wrap{ display:flex; align-items:center; justify-content:space-between; gap:24px; padding-top:13px; padding-bottom:13px; }
@@ -90,11 +101,11 @@
     font-family:'Barlow Condensed', sans-serif; font-weight:500; font-size:1.1rem; letter-spacing:0.03em;
     padding:4px 0; border-bottom:2px solid transparent;
   }
-  nav.links a:hover{ color:#fff; border-bottom-color:var(--straw); }
+  nav.links a:hover{ color:#fff; border-bottom-color:var(--red-hot); }
   nav.links a.nav-cta{
-    background:var(--straw); color:var(--ink); padding:8px 16px; border-bottom:0; border-radius:var(--radius); font-weight:600; white-space:nowrap;
+    background:var(--red-bright); color:#fff; padding:8px 16px; border-bottom:0; border-radius:var(--radius); font-weight:600; white-space:nowrap;
   }
-  nav.links a.nav-cta:hover{ background:#fff; color:var(--ink); }
+  nav.links a.nav-cta:hover{ background:#fff; color:var(--red-deep); }
   @media (max-width:760px){
     nav.links a:not(.nav-cta){ display:none; }
     .brand span{ display:none; }
@@ -107,12 +118,12 @@
     text-decoration:none; line-height:1.1;
     border:2px solid transparent; transition:background .15s, color .15s, border-color .15s;
   }
-  .btn-primary{ background:var(--dye); color:#fff; }
-  .btn-primary:hover{ background:var(--dye-deep); color:#fff; }
+  .btn-primary{ background:var(--red); color:#fff; }
+  .btn-primary:hover{ background:var(--red-deep); color:#fff; }
   .btn-line{ border-color:var(--ink); color:var(--ink); }
   .btn-line:hover{ background:var(--ink); color:var(--steel-1); }
-  .on-dark .btn-primary{ background:var(--straw); color:var(--ink); }
-  .on-dark .btn-primary:hover{ background:#fff; color:var(--ink); }
+  .on-dark .btn-primary{ background:var(--red-bright); color:#fff; }
+  .on-dark .btn-primary:hover{ background:#fff; color:var(--red-deep); }
   .btn-row{ display:flex; flex-wrap:wrap; gap:14px; }
 
   /* ---------- HERO ---------- */
@@ -144,7 +155,7 @@
   .plate dl{ margin:0; padding:0 14px; }
   .plate dt{ font-family:'Barlow Condensed', sans-serif; font-weight:600; font-size:1rem; letter-spacing:0.04em; color:var(--ink-soft); margin-top:16px; }
   .plate dd{ margin:4px 0 0; font-family:'JetBrains Mono', monospace; font-size:0.86rem; line-height:1.5; color:var(--ink); word-break:break-word; }
-  .plate dd.was{ color:#5B4A44; text-decoration:line-through; text-decoration-color:rgba(91,74,68,0.55); }
+  .plate dd.was{ color:#5B4A44; text-decoration:line-through; text-decoration-color:var(--red); text-decoration-thickness:2px; }
   .plate dd.now{ font-weight:500; }
   .plate .stamp{ margin:20px 14px 0; font-size:0.85rem; color:var(--ink-soft); font-style:normal; }
 
@@ -159,6 +170,7 @@
     opacity:0.85;
     animation:scribe 1.3s cubic-bezier(.3,.7,.2,1) .25s both;
   }
+  .rule::before{ content:""; position:absolute; left:0; top:-2px; width:6px; height:32px; background:var(--red); }
   @keyframes scribe{ from{ clip-path:inset(0 100% 0 0); } to{ clip-path:inset(0 0 0 0); } }
 
   /* ---------- SECTION HEADS ---------- */
@@ -178,14 +190,14 @@
   .issues p{ margin:0; color:var(--ink-soft); }
 
   /* ---------- SAMPLE: before and after table ---------- */
-  .sample-note{ display:inline-block; border-left:3px solid var(--straw); padding:2px 0 2px 14px; color:var(--on-dark-soft); margin:0 0 28px; max-width:44rem; }
+  .sample-note{ display:inline-block; border-left:3px solid var(--red-hot); padding:2px 0 2px 14px; color:var(--on-dark-soft); margin:0 0 28px; max-width:44rem; }
   .ba{ width:100%; border-collapse:collapse; }
   .ba caption{ position:absolute; left:-999px; }
   .ba th{
     text-align:left; font-family:'Barlow Condensed', sans-serif; font-weight:600; font-size:1.15rem; letter-spacing:0.04em;
     color:var(--on-dark-soft); padding:0 18px 12px 0; border-bottom:2px solid var(--on-dark-soft);
   }
-  .ba th:nth-child(2){ color:var(--straw); }
+  .ba th:nth-child(2){ color:var(--red-hot); }
   .ba td{ vertical-align:top; padding:20px 18px 20px 0; border-bottom:1px solid var(--gun-3); }
   .ba td.was{ font-family:'JetBrains Mono', monospace; font-size:0.85rem; color:#9AA4AC; }
   .ba td.now{ font-family:'JetBrains Mono', monospace; font-size:0.85rem; color:#fff; }
@@ -198,7 +210,7 @@
     .ba td{ border:0; padding:4px 0; }
     .ba td::before{ display:block; font-family:'Barlow Condensed', sans-serif; font-weight:600; letter-spacing:0.04em; font-size:0.95rem; color:var(--on-dark-soft); margin-top:8px; }
     .ba td.was::before{ content:"As found"; }
-    .ba td.now::before{ content:"After cleanup"; color:var(--straw); }
+    .ba td.now::before{ content:"After cleanup"; color:var(--red-hot); }
     .ba td.why::before{ content:"What changed"; }
   }
 
@@ -213,7 +225,7 @@
   .service > div > p{ margin:0; color:var(--ink-soft); max-width:26rem; }
   .service ul{ margin:0; padding-left:1.2em; }
   .service li{ margin-bottom:0.45em; }
-  .service li::marker{ color:var(--dye); }
+  .service li::marker{ color:var(--red); }
 
   /* ---------- PROCESS: a real sequence ---------- */
   .steps{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin:0; padding:0; list-style:none; counter-reset:step; border-top:2px solid var(--ink); }
@@ -223,7 +235,7 @@
   @media (max-width:820px){ .steps li{ border-bottom:1px solid var(--steel-3); padding-bottom:22px; } }
   .steps li::before{
     content:counter(step);
-    display:block; font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:4rem; line-height:0.9; color:var(--dye); margin-bottom:10px;
+    display:block; font-family:'Barlow Condensed', sans-serif; font-weight:700; font-size:4rem; line-height:0.9; color:var(--red); margin-bottom:10px;
   }
   .steps h3{ font-size:1.7rem; }
   .steps p{ color:var(--ink); margin:0; }
@@ -238,16 +250,16 @@
   @media (max-width:820px){ .about{ grid-template-columns:1fr; } }
   .about h2{ font-size:clamp(2.2rem, 4.6vw, 3.2rem); }
   .about p{ color:var(--on-dark-soft); }
-  .honest{ border-left:3px solid var(--straw); padding-left:18px; margin-top:26px; color:var(--on-dark); }
+  .honest{ border-left:3px solid var(--red-hot); padding-left:18px; margin-top:26px; color:var(--on-dark); }
   .contact{ margin-top:80px; padding-top:64px; border-top:1px solid var(--gun-3); }
   .contact h2{ font-size:clamp(2.4rem, 6vw, 4.2rem); max-width:13ch; }
   .contact .lede{ color:var(--on-dark-soft); max-width:32em; font-size:1.12rem; margin-bottom:1.6em; }
   .details{ margin:40px 0 0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:10px 40px; font-size:1rem; color:var(--on-dark-soft); }
   .details a{ color:var(--on-dark); text-decoration-color:var(--gun-3); text-underline-offset:4px; }
-  .details a:hover{ color:var(--straw); }
+  .details a:hover{ color:var(--red-hot); }
 
   footer{ background:#101316; color:var(--on-dark-soft); font-size:0.88rem; padding:22px 0; }
-  .hazard{ height:8px; background:repeating-linear-gradient(-45deg, var(--straw) 0 12px, var(--gun-1) 12px 24px); opacity:0.9; }
+  .hazard{ height:8px; background:repeating-linear-gradient(-45deg, var(--red-bright) 0 12px, var(--gun-1) 12px 24px); opacity:0.9; }
 
   @media (prefers-reduced-motion:reduce){
     html{ scroll-behavior:auto; }
@@ -262,7 +274,7 @@
 <header class="nav">
   <div class="wrap">
     <a class="brand" href="#top" aria-label="Vineet Basantani, home">
-      <svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><path fill="#D9DDE0" d="M16 2l12 7v14l-12 7L4 23V9z"/><path fill="#8C959C" d="M16 2l12 7v14l-12 7z" opacity=".45"/><circle cx="16" cy="16" r="5.2" fill="#1B1F23"/></svg>
+      <svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><path fill="#D9DDE0" d="M16 2l12 7v14l-12 7L4 23V9z"/><path fill="#8C959C" d="M16 2l12 7v14l-12 7z" opacity=".45"/><circle cx="16" cy="16" r="5.2" fill="#D62828"/></svg>
       <div><b>Vineet Basantani</b><span>Parts and catalog data, to spec</span></div>
     </a>
     <nav class="links" aria-label="Main">

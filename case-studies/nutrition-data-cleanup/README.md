@@ -1,6 +1,8 @@
-[README.md](https://github.com/user-attachments/files/30153356/README.md)
+![Nutrition Data Cleanup](banner.png)
 
 # Case Study: Cleaning a Messy Nutrition Dataset
+
+![data: representative sample](https://img.shields.io/badge/data-representative_sample-B3141B?style=flat-square&labelColor=1B1F23)
 
 **The problem:** Public and self-collected nutrition data almost always looks
 like this — the same food entered multiple times under slightly different
